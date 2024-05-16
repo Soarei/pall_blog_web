@@ -5,23 +5,12 @@ import { Link } from "react-router-dom";
 import { logout, getUserInfo } from "@/store/actions";
 import FullScreen from "@/components/FullScreen";
 import Settings from "@/components/Settings";
-import Hamburger from "@/components/Hamburger";
-import BreadCrumb from "@/components/BreadCrumb";
-import Sider from "../Sider";
 import LeftMenu from "./LeftMenu/leftMenu";
 import "./index.less";
 const { Header } = Layout;
 
 const LayoutHeader = (props) => {
-  const {
-    token,
-    avatar,
-    sidebarCollapsed,
-    logout,
-    getUserInfo,
-    showSettings,
-    fixedHeader,
-  } = props;
+  const { token, avatar, logout, getUserInfo, showSettings } = props;
   token && getUserInfo(token);
   const handleLogout = (token) => {
     Modal.confirm({
@@ -61,27 +50,6 @@ const LayoutHeader = (props) => {
       <Menu.Item key="logout">注销</Menu.Item>
     </Menu>
   );
-  const computedStyle = () => {
-    let styles;
-    if (fixedHeader) {
-      if (sidebarCollapsed) {
-        styles = {
-          width: "90%",
-          display: "flex",
-        };
-      } else {
-        styles = {
-          width: "90%",
-          display: "flex",
-        };
-      }
-    } else {
-      styles = {
-        width: "100%",
-      };
-    }
-    return styles;
-  };
   return (
     <>
       {/* 这里是仿照antd pro的做法,如果固定header，

@@ -88,11 +88,11 @@ const ArticleList = (props) => {
               <Row>
                 <Col span={12} lg={12} md={12} sm={24} xs={24} className="user">
                   <img
-                    src="https://picture.moguit.cn//blog/admin/jpg/2023/7/21/1689904876080.jpg"
+                    src={item.pall_user.user_avatar}
                     alt=""
                     className="useravatar"
                   />
-                  <div className="userName">来自星星的你</div>
+                  <div className="userName">{item.pall_user.user_name}</div>
                   <div className="labels">
                     {item.labels.map((label) => {
                       return (
