@@ -1,35 +1,88 @@
-import React from "react";
-import Driver from "driver.js"; // import driver.js
-import "driver.js/dist/driver.min.css"; // import driver.js css
-import { Button } from "antd";
-import TypingCard from '@/components/TypingCard'
-import steps from "./steps";
-const driver = new Driver({
-  animate: true, // 在更改突出显示的元素时是否设置动画，
-                  // 当header的position为fixed时，会覆盖元素，这是driver.js的bug，
-                  // 详细内容见https://github.com/kamranahmedse/driver.js/issues/97
-  opacity: 0.75, // 背景不透明度（0表示只有弹出窗口，没有覆盖）
-  doneBtnText: "完成", // 最后一个按钮上的文本
-  closeBtnText: "关闭", // 此步骤的“关闭”按钮上的文本
-  nextBtnText: "下一步", // 此步骤的下一步按钮文本
-  prevBtnText: "上一步", // 此步骤的上一个按钮文本
-});
-
-const guide = function () {
-  driver.defineSteps(steps);
-  driver.start();
-};
-const Guide = function () {
-  const cardContent = `引导页对于一些第一次进入项目的人很有用，你可以简单介绍下项目的功能。
-                       本Demo是基于<a href="https://github.com/kamranahmedse/driver.js" target="_blank">driver.js</a>`
+import React, { useEffect, useState } from "react";
+import { getArticleDetail } from "@/api/article";
+import { Row, Col, Icon, Tag } from "antd";
+import RichTextRender from "./components/RichTextRender/RichTextRender";
+import Tools from "./components/Tools/Tools";
+import "./index.less";
+const Info = (props) => {
+  let [articleInfo, setarticleInfo] = useState({});
+  useEffect(() => {
+    getArticleDetail({ articleId: props.match.params.articleId }).then(
+      (res) => {
+        setarticleInfo(res.data.data);
+      }
+    );
+    // console.log(articleInfo.article_content);
+  }, [props.match.params.articleId]);
+  // const getArticleDetail = useCallback(() => {
+  //   getArticleDetail({ articleId }).then((res) => {
+  //     console.log(res);
+  //   });
+  // });
   return (
-    <div className="app-container">
-      <TypingCard title='新手引导' source={cardContent}/>
-      <Button type="primary" onClick={guide}>
-        打开引导
-      </Button>
+    <div className="container">
+      <Row>
+        <Col span={16} lg={18} md={24} sm={24} xs={24}>
+          <div className="container-content">
+            <div className="header">
+              <div className="header-title">{articleInfo.article_title}</div>
+              <div className="header-info">
+                <Row>
+                  <Col
+                    span={12}
+                    lg={12}
+                    md={12}
+                    sm={24}
+                    xs={24}
+                    className="user"
+                  >
+                    <img
+                      src="https://picture.moguit.cn//blog/admin/jpg/2023/7/21/1689904876080.jpg"
+                      alt=""
+                      className="useravatar"
+                    />
+                    <div className="userName">来自星星的你</div>
+                    <div className="labels">
+                      <Tag color="magenta">前端开发</Tag>
+                      <Tag color="magenta">前端开发</Tag>
+                      {/* <div className="labels-item">前端开发</div>
+                    <div className="labels-item">JAVA</div> */}
+                    </div>
+                  </Col>
+                  <Col
+                    span={12}
+                    lg={12}
+                    md={12}
+                    sm={24}
+                    xs={24}
+                    className="info"
+                  >
+                    <div className="icon">
+                      <Icon type="eye" className="custom-icon" />
+                      1000
+                    </div>
+                    <div className="icon">
+                      <Icon type="like" className="custom-icon" />
+                      赞1000
+                    </div>
+                    <div className="icon">
+                      <Icon type="star" className="custom-icon" />
+                      收藏1000
+                    </div>
+                  </Col>
+                </Row>
+              </div>
+            </div>
+            <RichTextRender htmlContent={articleInfo.article_content} />
+          </div>
+        </Col>
+        <Col span={6} lg={6} md={0} sm={0} xs={0}>
+          <div className="container-left">1111</div>
+        </Col>
+      </Row>
+      <Tools className="tools" />
     </div>
   );
 };
 
-export default Guide;
+export default Info;

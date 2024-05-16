@@ -132,7 +132,7 @@ class Meun extends Component {
                           {...provided.dragHandleProps}
                         >
                           <Menu
-                            mode="inline"
+                            mode="horizontal"
                             theme="dark"
                             onSelect={this.handleMenuSelect}
                             selectedKeys={[path]}

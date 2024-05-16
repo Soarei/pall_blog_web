@@ -7,6 +7,8 @@ import FullScreen from "@/components/FullScreen";
 import Settings from "@/components/Settings";
 import Hamburger from "@/components/Hamburger";
 import BreadCrumb from "@/components/BreadCrumb";
+import Sider from "../Sider";
+import LeftMenu from "./LeftMenu/leftMenu";
 import "./index.less";
 const { Header } = Layout;
 
@@ -64,11 +66,13 @@ const LayoutHeader = (props) => {
     if (fixedHeader) {
       if (sidebarCollapsed) {
         styles = {
-          width: "calc(100% - 80px)",
+          width: "90%",
+          display: "flex",
         };
       } else {
         styles = {
-          width: "calc(100% - 200px)",
+          width: "90%",
+          display: "flex",
         };
       }
     } else {
@@ -82,23 +86,22 @@ const LayoutHeader = (props) => {
     <>
       {/* 这里是仿照antd pro的做法,如果固定header，
       则header的定位变为fixed，此时需要一个定位为relative的header把原来的header位置撑起来 */}
-      {fixedHeader ? <Header /> : null}
-      <Header
-        style={computedStyle()}
-        className={fixedHeader ? "fix-header" : ""}
-      >
-        <Hamburger />
-        <BreadCrumb />
-        <div className="right-menu">
-          <FullScreen />
-          {showSettings ? <Settings /> : null}
-          <div className="dropdown-wrap">
-            <Dropdown overlay={menu}>
-              <div>
-                <Avatar shape="square" size="medium" src={avatar} />
-                <Icon style={{ color: "rgba(0,0,0,.3)" }} type="caret-down" />
-              </div>
-            </Dropdown>
+      <Header>
+        <div className="myheader">
+          <div className="left-menu">
+            <LeftMenu props="1"></LeftMenu>
+          </div>
+          <div className="right-menu">
+            <FullScreen />
+            {showSettings ? <Settings /> : null}
+            <div className="dropdown-wrap">
+              <Dropdown overlay={menu}>
+                <div>
+                  <Avatar shape="square" size="medium" src={avatar} />
+                  <Icon style={{ color: "rgba(0,0,0,.3)" }} type="caret-down" />
+                </div>
+              </Dropdown>
+            </div>
           </div>
         </div>
       </Header>

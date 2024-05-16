@@ -5,20 +5,49 @@
   height: 64px;
   background: #fff !important;
   box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
-  .right-menu {
-    float: right;
-    .dropdown-wrap {
-      cursor: pointer;
-      display: inline-block;
-      .ant-dropdown-menu-item {
-        padding: 6px 20px 8px 15px;
-        i {
-          padding-right: 15px;
+  padding: 0 0 !important;
+  overflow: hidden;
+  .myheader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 90%;
+    margin: 0 auto;
+    .left-menu {
+      .ant-menu-horizontal {
+        border-bottom: none;
+        .ant-menu-item {
+          font-size: 18px;
+          &:hover {
+            border: none;
+          }
+        }
+        .ant-menu-item-selected {
+          border-bottom: none;
+        }
+        .ant-menu-item-active {
+          border-bottom: none;
+          &:hover {
+            border: none;
+          }
         }
       }
-      .anticon-caret-down {
-        vertical-align: bottom;
-        padding: 0 0 12px 6px;
+    }
+    .right-menu {
+      float: right;
+      .dropdown-wrap {
+        cursor: pointer;
+        display: inline-block;
+        .ant-dropdown-menu-item {
+          padding: 6px 20px 8px 15px;
+          i {
+            padding-right: 15px;
+          }
+        }
+        .anticon-caret-down {
+          vertical-align: bottom;
+          padding: 0 0 12px 6px;
+        }
       }
     }
   }
