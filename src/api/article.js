@@ -14,6 +14,14 @@ export function getArticleDetail(data) {
     params: data
   })
 }
+// 获取文章详情评论
+export function getArticleComments(data) {
+  return request({
+    url: '/dashboard/article/page/detail/comments',
+    method: 'get',
+    params: data
+  })
+}
 export function getCategorylist() {
   return request({
     url: '/dashboard/category/list',

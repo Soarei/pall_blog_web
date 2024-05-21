@@ -50,7 +50,7 @@ module.exports = {
       ...config,
       proxy: {
         '/dev-api': {
-          target: 'http://192.168.1.6:4000',
+          target: 'http://localhost:4000',
           changeOrigin: true,
           secure: false,
           pathRewrite: {

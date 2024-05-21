@@ -3,6 +3,7 @@ import { getArticleDetail } from "@/api/article";
 import { Row, Col, Icon, Tag } from "antd";
 import RichTextRender from "./components/RichTextRender/RichTextRender";
 import Tools from "./components/Tools/Tools";
+import Comments from "./components/Comments/Comments";
 import "./index.less";
 const Info = (props) => {
   let [articleInfo, setarticleInfo] = useState({});
@@ -75,6 +76,7 @@ const Info = (props) => {
             </div>
             <RichTextRender htmlContent={articleInfo.article_content} />
           </div>
+          <Comments></Comments>
         </Col>
         <Col span={6} lg={6} md={0} sm={0} xs={0}>
           <div className="container-left">1111</div>

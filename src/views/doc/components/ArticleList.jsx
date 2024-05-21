@@ -94,13 +94,14 @@ const ArticleList = (props) => {
                   />
                   <div className="userName">{item.pall_user.user_name}</div>
                   <div className="labels">
-                    {item.labels.map((label) => {
-                      return (
-                        <Tag color="magenta" key={label}>
-                          {label}
-                        </Tag>
-                      );
-                    })}
+                    {item.pall_labels.length > 0 &&
+                      item.pall_labels.map((label) => {
+                        return (
+                          <Tag color="magenta" key={label.id}>
+                            {label.label_name}
+                          </Tag>
+                        );
+                      })}
                     {/* <div className="labels-item">前端开发</div>
                     <div className="labels-item">JAVA</div> */}
                   </div>
