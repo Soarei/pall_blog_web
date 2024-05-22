@@ -14,12 +14,28 @@ export function getArticleDetail(data) {
     params: data
   })
 }
+// 获取文章点赞 收藏数量
+export function getCountStatic(data) {
+  return request({
+    url: '/dashboard/article/page/detail/count',
+    method: 'get',
+    params: data
+  })
+}
 // 获取文章详情评论
 export function getArticleComments(data) {
   return request({
     url: '/dashboard/article/page/detail/comments',
     method: 'get',
     params: data
+  })
+}
+// 回复评论
+export function addArticleComments(data) {
+  return request({
+    url: '/dashboard/article/page/detail/commentsadd',
+    method: 'post',
+    data
   })
 }
 export function getCategorylist() {

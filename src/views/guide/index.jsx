@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { getArticleDetail } from "@/api/article";
-import { Row, Col, Icon, Tag } from "antd";
+import { getArticleDetail, getCountStatic } from "@/api/article";
+import { Row, Col, Icon, Tag, Badge } from "antd";
 import RichTextRender from "./components/RichTextRender/RichTextRender";
 import Tools from "./components/Tools/Tools";
 import Comments from "./components/Comments/Comments";
 import "./index.less";
 const Info = (props) => {
   let [articleInfo, setarticleInfo] = useState({});
+  let [counts, setCounts] = useState({});
+
   useEffect(() => {
     getArticleDetail({ articleId: props.match.params.articleId }).then(
       (res) => {
@@ -15,11 +17,18 @@ const Info = (props) => {
     );
     // console.log(articleInfo.article_content);
   }, [props.match.params.articleId]);
-  // const getArticleDetail = useCallback(() => {
-  //   getArticleDetail({ articleId }).then((res) => {
-  //     console.log(res);
-  //   });
-  // });
+
+  useEffect(() => {
+    getCountStatic({ articleId: props.match.params.articleId }).then((res) => {
+      setCounts(res.data.data);
+      // console.log(counts);
+    });
+  }, [props.match.params.articleId]);
+
+  const gotoAnchhor = (id) => {
+    let element = document.getElementById(id);
+    element && element.scrollIntoView({ block: "start", behavior: "smooth" });
+  };
   return (
     <div className="container">
       <Row>
@@ -63,6 +72,7 @@ const Info = (props) => {
                       1000
                     </div>
                     <div className="icon">
+                      å
                       <Icon type="like" className="custom-icon" />
                       赞1000
                     </div>
@@ -76,13 +86,13 @@ const Info = (props) => {
             </div>
             <RichTextRender htmlContent={articleInfo.article_content} />
           </div>
-          <Comments></Comments>
+          <Comments id="components-comment"></Comments>
         </Col>
         <Col span={6} lg={6} md={0} sm={0} xs={0}>
           <div className="container-left">1111</div>
         </Col>
       </Row>
-      <Tools className="tools" />
+      <Tools className="tools" counts={counts} />
     </div>
   );
 };
