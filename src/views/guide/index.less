@@ -51,6 +51,51 @@
       }
     }
   }
+  .container-left {
+    .authinfo {
+      padding: 20px;
+      background-color: #fff;
+      margin-left: 20px;
+      border-radius: 6px;
+      .auth-header {
+        display: flex;
+        align-items: center;
+        .auth-name {
+          padding-left: 20px;
+          font-size: 18px;
+        }
+      }
+      .auth-content {
+        width: 80%;
+        margin: 10px auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        text-align: center;
+        .auth-content-item {
+          .label {
+            font-size: 16px;
+            font-weight: bold;
+            color: #8a919f;
+          }
+          .value {
+            font-size: 16px;
+            font-weight: bold;
+          }
+        }
+      }
+      .auth-footer {
+        width: 80%;
+        margin: 10px auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        /deep/ .ant-btn {
+          padding: 0 25px !important;
+        }
+      }
+    }
+  }
   .tools {
     position: fixed;
     left: 20px;

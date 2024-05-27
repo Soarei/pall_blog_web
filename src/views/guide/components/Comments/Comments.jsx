@@ -7,6 +7,7 @@ import "./Comments.less";
 const Comments = ({ articleId }) => {
   let [commentlist, setCommentList] = useState([]);
   var [content, setContent] = useState("");
+  let [replyInfo, setreplyInfo] = useState({});
   // var content = "";
   // eslint-disable-next-line react/react-in-jsx-scope
   useEffect(() => {
@@ -55,10 +56,13 @@ const Comments = ({ articleId }) => {
     };
     addArticleComments(data).then((res) => {});
   };
-
+  // 回复评论
+  const replyComment = (item) => {
+    setreplyInfo(item);
+  };
   return (
-    <div className="comments">
-      <Editor></Editor>
+    <div className="comments" id="components-comment">
+      <Editor replyInfo={replyInfo}></Editor>
       {commentlist.map((item) => {
         return (
           <Comment
@@ -66,7 +70,7 @@ const Comments = ({ articleId }) => {
               <span
                 key="comment-basic-reply-to"
                 onClick={() => {
-                  handleOpenEditor(item);
+                  replyComment(item);
                 }}
               >
                 回复
@@ -92,7 +96,16 @@ const Comments = ({ articleId }) => {
               ? item.children.map((child) => {
                   return (
                     <Comment
-                      actions={[<span key="comment-basic-reply-to">回复</span>]}
+                      actions={[
+                        <span
+                          key="comment-basic-reply-to"
+                          onClick={() => {
+                            replyComment(child);
+                          }}
+                        >
+                          回复
+                        </span>,
+                      ]}
                       author={<a>{child.user.username}</a>}
                       key={child.id}
                       avatar={

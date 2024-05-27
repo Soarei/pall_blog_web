@@ -21,9 +21,14 @@ const Tools = (props) => {
       <div className="tools-item">
         <Icon type="dislike" theme="filled" />
       </div>
-      <div className="tools-item">
-        <Icon type="star" theme="filled" />
-      </div>
+      <Badge
+        count={props.counts.collectCount}
+        style={{ backgroundColor: "#333" }}
+      >
+        <div className="tools-item">
+          <Icon type="star" theme="filled" />
+        </div>
+      </Badge>
       <Badge
         count={props.counts.commentCount}
         style={{ backgroundColor: "#333" }}

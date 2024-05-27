@@ -14,6 +14,14 @@ export function getArticleDetail(data) {
     params: data
   })
 }
+// 获取文章用户信息
+export function getUserInfoArticle(data) {
+  return request({
+    url: '/dashboard/article/page/detail/userinfo',
+    method: 'get',
+    params: data
+  })
+}
 // 获取文章点赞 收藏数量
 export function getCountStatic(data) {
   return request({
