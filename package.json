@@ -46,11 +46,13 @@
   },
   "scripts": {
     "start": "react-app-rewired start",
-    "commitlint": "commitlint --config commitlint.config.cjs -e -V",
+    "commitlint": "commitlint --config commitlint.config.js -e -V",
+    "pre-commit": "lint-staged",
     "build": "react-app-rewired --max-old-space-size=4096 build ",
     "test": "react-app-rewired test",
     "eject": "react-scripts eject",
-    "commit": "git cz"
+    "commit": "git cz",
+    "prepare": "husky install"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -74,6 +76,8 @@
     "commitizen": "^4.0.3",
     "customize-cra": "^0.9.1",
     "cz-conventional-changelog": "^3.0.2",
+    "husky": "^8.0.0",
+    "lint-staged": "^15.2.5",
     "mockjs": "^1.1.0",
     "react-app-rewired": "^2.1.5",
     "user-agent": "^1.0.4"
