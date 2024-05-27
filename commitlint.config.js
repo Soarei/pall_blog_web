@@ -8,6 +8,7 @@ module.exports = {
       [
         'feat',
         'fix',
+        'tt',
         'docs',
         'style',
         'refactor',
