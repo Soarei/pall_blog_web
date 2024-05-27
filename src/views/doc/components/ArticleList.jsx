@@ -48,6 +48,28 @@ const ArticleList = (props) => {
       }
     });
   };
+  //获取富文本的纯文字内容
+  const getPlainText = (richCont) => {
+    let value = richCont;
+    //转意符换成普通字符
+    function convertIdeogramToNormalCharacter(val) {
+      const arrEntities = { lt: "<", gt: ">", nbsp: " ", amp: "&", quot: '"' };
+      return val.replace(/&(lt|gt|nbsp|amp|quot);/gi, function (all, t) {
+        return arrEntities[t];
+      });
+    }
+    if (richCont) {
+      value = value.replace(/\s*/g, ""); //去掉空格
+      value = value.replace(/<[^>]+>/g, ""); //去掉所有的html标记
+      value = value.replace(/↵/g, ""); //去掉所有的↵符号
+      value = value.replace(/[\r\n]/g, ""); //去掉回车换行
+      value = value.replace(/&nbsp;/g, ""); //去掉空格
+      value = convertIdeogramToNormalCharacter(value);
+      return value;
+    } else {
+      return null;
+    }
+  };
   // 跳转到详情页面
   const getArticleDetail = (articleId) => {
     history.push(`/info/${articleId}`);
@@ -76,9 +98,7 @@ const ArticleList = (props) => {
             </div>
             <div className="article-item-content">
               <div className="content">
-                Mybatis异常，报错提示There is no
-                getterMybatis异常，报错提示There is no
-                getterMybatis异常，报错提示There is no
+                {getPlainText(item.article_content)}
               </div>
               <div className="image">
                 <img src={item.article_cover} alt="" />

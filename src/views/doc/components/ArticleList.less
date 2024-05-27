@@ -17,9 +17,15 @@
       justify-content: space-between;
       .content {
         flex: 3;
-        font-size: 16px;
+        font-size: 18px;
+        line-height: 30px;
         color: #333;
         padding: 5px 0;
+        -webkit-line-clamp: 3;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
       .image {
         width: 200px;
