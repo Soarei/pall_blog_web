@@ -73,7 +73,7 @@ const Info = (props) => {
                       {articleInfo.labels
                         ? articleInfo.labels.map((item) => {
                             return (
-                              <Tag color="magenta" key={item.label_name}>
+                              <Tag color={item.color} key={item.label_name}>
                                 {item.label_name}
                               </Tag>
                             );

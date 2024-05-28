@@ -6,6 +6,20 @@ export function getArticleList(data) {
     params: data
   })
 }
+//获取首页banner图片
+export function getBanner() {
+  return request({
+    url: '/dashboard/article/platform/banner',
+    method: 'get'
+  })
+}
+//文章榜
+export function gettopArticle() {
+  return request({
+    url: '/dashboard/article/top',
+    method: 'get'
+  })
+}
 // 获取文章详情
 export function getArticleDetail(data) {
   return request({

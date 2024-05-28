@@ -15,7 +15,7 @@ class Router extends React.Component {
             path="/"
             render={() => {
               if (!token) {
-                return <Redirect to="/login" />;
+                return <Layout />;
               } else {
                 if (role) {
                   return <Layout />;

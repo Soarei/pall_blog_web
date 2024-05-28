@@ -17,15 +17,27 @@ const LeftMenu = (props) => {
       </Menu.Item>
       <Menu.Item key="app" className="modified-item">
         {/* <Icon type="appstore" /> */}
-        前端开发
+        专栏
       </Menu.Item>
       <Menu.Item key="apps" className="modified-item">
         {/* <Icon type="appstore" /> */}
-        后端开发
+        朋友圈
       </Menu.Item>
       <Menu.Item key="news" className="modified-item">
         {/* <Icon type="appstore" /> */}
-        技术新闻
+        资源
+      </Menu.Item>
+      <Menu.Item key="hot" className="modified-item">
+        {/* <Icon type="appstore" /> */}
+        热搜
+      </Menu.Item>
+      <Menu.Item key="hots" className="modified-item">
+        {/* <Icon type="appstore" /> */}
+        更新日志
+      </Menu.Item>
+      <Menu.Item key="hotss" className="modified-item">
+        {/* <Icon type="appstore" /> */}
+        归档
       </Menu.Item>
     </Menu>
   );

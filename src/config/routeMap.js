@@ -26,9 +26,9 @@ const About = Loadable({ loader: () => import(/*webpackChunkName:'About'*/'@/vie
 const Bug = Loadable({ loader: () => import(/*webpackChunkName:'Bug'*/'@/views/bug'), loading: Loading });
 
 export default [
-  { path: "/dashboard", component: Dashboard, roles: ["admin", "editor", "guest"] },
-  { path: "/doc", component: Doc, roles: ["admin", "editor", "guest"] },
-  { path: "/info/:articleId", component: Guide, roles: ["admin", "editor"] },
+  { path: "/dashboard", component: Dashboard },
+  { path: "/doc", component: Doc },
+  { path: "/info/:articleId", component: Guide },
   { path: "/permission/explanation", component: Explanation, roles: ["admin"] },
   { path: "/permission/adminPage", component: AdminPage, roles: ["admin"] },
   { path: "/permission/guestPage", component: GuestPage, roles: ["guest"] },

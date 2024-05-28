@@ -117,7 +117,7 @@ const ArticleList = (props) => {
                     {item.pall_labels.length > 0 &&
                       item.pall_labels.map((label) => {
                         return (
-                          <Tag color="magenta" key={label.id}>
+                          <Tag color={label.color} key={label.id}>
                             {label.label_name}
                           </Tag>
                         );

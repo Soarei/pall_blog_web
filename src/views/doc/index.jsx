@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Carousel, Row, Col, Tabs, Button } from "antd";
+import { Carousel, Row, Col, Tabs } from "antd";
 import ArticleList from "./components/ArticleList";
-import { getCategorylist } from "@/api/article";
+import { getCategorylist, gettopArticle, getBanner } from "@/api/article";
 import "./index.less";
 const { TabPane } = Tabs;
 
@@ -10,15 +10,30 @@ const { TabPane } = Tabs;
 const Doc = () => {
   const mode = "top";
   let [catgorylist, setCatgoryList] = useState([]);
+  let [toplist, setTopList] = useState([]);
+  let [banner, setBanner] = useState([]);
   let [activeKey, setActiveKey] = useState("1");
   let artileRef = React.createRef();
   useEffect(() => {
     getCategory();
   }, []);
+  useEffect(() => {
+    gettopArticle().then((res) => {
+      setTopList(res.data.data.data);
+      // console.log(res.data.data.data);
+    });
+  }, []);
+  //获取banner轮播图
+  useEffect(() => {
+    getBanner().then((res) => {
+      setBanner(res.data.data);
+    });
+  }, []);
   const onChange = (currentSlide) => {};
   const getCategory = () => {
     getCategorylist().then((res) => {
       setCatgoryList(res.data.data);
+      console.log(res.data.data);
     });
   };
   const handleTabClick = (val) => {
@@ -31,20 +46,14 @@ const Doc = () => {
       <Row>
         <Col span={16} lg={16} sm={24} xs={24}>
           <Carousel afterChange={onChange}>
-            <div className="course-left-item">
-              <img
-                src="https://picture.moguit.cn//blog/admin/png/2024/2/26/1708936878668.png"
-                alt=""
-              />
-              <div className="course-text">Windows环境下配置蘑菇博客环境</div>
-            </div>
-            <div className="course-left-item">
-              <img
-                src="https://picture.moguit.cn//blog/admin/png/2024/2/26/1708936878668.png"
-                alt=""
-              />
-              <div className="course-text">Windows环境下配置蘑菇博客环境</div>
-            </div>
+            {banner.map((item) => {
+              return (
+                <div className="course-left-item" key={item.id}>
+                  <img src={item.picture} alt="" />
+                  <div className="course-text">{item.title}</div>
+                </div>
+              );
+            })}
           </Carousel>
         </Col>
         <Col span={8} lg={8} sm={0} xs={0}>
@@ -91,36 +100,14 @@ const Doc = () => {
               <div className="refresh">换一换</div>
             </div>
             <div className="content">
-              <div className="content-item">
-                <div className="num">1</div>
-                <div className="article-title">
-                  Flutter 3.22 发布，快来看看有什么更新吧？
-                </div>
-              </div>
-              <div className="content-item">
-                <div className="num">2</div>
-                <div className="article-title">
-                  Flutter 3.22 发布，快来看看有什么更新吧？
-                </div>
-              </div>
-              <div className="content-item">
-                <div className="num">1</div>
-                <div className="article-title">
-                  Flutter 3.22 发布，快来看看有什么更新吧？
-                </div>
-              </div>
-              <div className="content-item">
-                <div className="num">1</div>
-                <div className="article-title">
-                  Flutter 3.22 发布，快来看看有什么更新吧？
-                </div>
-              </div>
-              <div className="content-item">
-                <div className="num">1</div>
-                <div className="article-title">
-                  Flutter 3.22 发布，快来看看有什么更新吧？
-                </div>
-              </div>
+              {toplist.map((item, index) => {
+                return (
+                  <div className="content-item" key={item.article_id}>
+                    <div className="num">{index + 1}</div>
+                    <div className="article-title">{item.article_title}</div>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </Col>
