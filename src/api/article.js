@@ -20,6 +20,13 @@ export function gettopArticle() {
     method: 'get'
   })
 }
+// 热门标签
+export function getHotLabel() {
+  return request({
+    url: '/dashboard/article/hotlabel',
+    method: 'get'
+  })
+}
 // 获取文章详情
 export function getArticleDetail(data) {
   return request({

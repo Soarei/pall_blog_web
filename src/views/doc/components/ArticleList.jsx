@@ -113,7 +113,7 @@ const ArticleList = (props) => {
                     className="useravatar"
                   />
                   <div className="userName">{item.pall_user.user_name}</div>
-                  <div className="labels">
+                  {/* <div className="labels">
                     {item.pall_labels.length > 0 &&
                       item.pall_labels.map((label) => {
                         return (
@@ -122,18 +122,16 @@ const ArticleList = (props) => {
                           </Tag>
                         );
                       })}
-                    {/* <div className="labels-item">前端开发</div>
-                    <div className="labels-item">JAVA</div> */}
-                  </div>
+                  </div> */}
                 </Col>
                 <Col span={12} lg={12} md={12} sm={24} xs={24} className="info">
                   <div className="icon">
                     <Icon type="eye" className="custom-icon" />
-                    1000
+                    {item.browse_count}
                   </div>
                   <div className="icon">
-                    <Icon type="like" className="custom-icon" />
-                    赞1000
+                    <Icon type="like" className="custom-icon" />赞
+                    {item.thumbs_count}
                   </div>
                   <div className="icon">
                     <Icon type="star" className="custom-icon" />

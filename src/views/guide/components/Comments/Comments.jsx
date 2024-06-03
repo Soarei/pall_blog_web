@@ -12,7 +12,7 @@ const Comments = ({ articleId }) => {
   // eslint-disable-next-line react/react-in-jsx-scope
   useEffect(() => {
     getArticleComments({
-      articleId: "50eb9701-0b86-4011-89ab-e4dca4556c6f",
+      articleId,
     }).then((res) => {
       let comments = res.data.data.comments;
       const groupByParentId = comments.reduce((acc, item) => {

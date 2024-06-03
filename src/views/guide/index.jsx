@@ -115,7 +115,7 @@ const Info = (props) => {
             </div>
             <RichTextRender htmlContent={articleInfo.article_content} />
           </div>
-          <Comments></Comments>
+          <Comments articleId={props.match.params.articleId}></Comments>
         </Col>
         <Col span={6} lg={6} md={0} sm={0} xs={0}>
           <div className="container-left">

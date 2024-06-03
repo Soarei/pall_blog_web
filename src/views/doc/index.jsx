@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Carousel, Row, Col, Tabs } from "antd";
+import { useHistory } from "react-router-dom";
+import { Carousel, Row, Col, Tabs, Tag } from "antd";
 import ArticleList from "./components/ArticleList";
-import { getCategorylist, gettopArticle, getBanner } from "@/api/article";
+import {
+  getCategorylist,
+  gettopArticle,
+  getBanner,
+  getHotLabel,
+} from "@/api/article";
 import "./index.less";
 const { TabPane } = Tabs;
 
@@ -9,10 +15,12 @@ const { TabPane } = Tabs;
 // https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/65d192768e254a768c4391e2b92a4bb6~tplv-k3u1fbpfcp-watermark.image?
 const Doc = () => {
   const mode = "top";
+  const history = useHistory();
   let [catgorylist, setCatgoryList] = useState([]);
   let [toplist, setTopList] = useState([]);
   let [banner, setBanner] = useState([]);
   let [activeKey, setActiveKey] = useState("1");
+  let [hotlist, setHotlist] = useState([]);
   let artileRef = React.createRef();
   useEffect(() => {
     getCategory();
@@ -29,6 +37,13 @@ const Doc = () => {
       setBanner(res.data.data);
     });
   }, []);
+  //获取热门标签
+  useEffect(() => {
+    getHotLabel().then((res) => {
+      console.log(res.data.data);
+      setHotlist(res.data.data);
+    });
+  }, []);
   const onChange = (currentSlide) => {};
   const getCategory = () => {
     getCategorylist().then((res) => {
@@ -39,6 +54,12 @@ const Doc = () => {
   const handleTabClick = (val) => {
     setActiveKey(val);
     artileRef.current.receive();
+  };
+  // 跳转到详情页面
+  const getArticleDetail = (articleId) => {
+    history.push(`/info/${articleId}`);
+    // let url = document.URL + "info?articleId=" + articleId;
+    // console.log(url);
   };
   return (
     <div className="app-container">
@@ -102,9 +123,35 @@ const Doc = () => {
             <div className="content">
               {toplist.map((item, index) => {
                 return (
-                  <div className="content-item" key={item.article_id}>
+                  <div
+                    className="content-item"
+                    key={item.article_id}
+                    onClick={() => {
+                      getArticleDetail(item.article_id);
+                    }}
+                  >
                     <div className="num">{index + 1}</div>
                     <div className="article-title">{item.article_title}</div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+          <div className="recommend">
+            <div className="header">
+              <div className="left">
+                <img src="https://s1.ax1x.com/2020/04/28/J5hUaT.jpg" alt="" />
+                <div className="title">热门标签</div>
+              </div>
+              <div className="refresh">换一换</div>
+            </div>
+            <div className="contentlabel">
+              {hotlist.map((item, index) => {
+                return (
+                  <div className="content-label-item" key={item.id}>
+                    {/* <div className="num">{index + 1}</div>
+                    <div className="article-title">{item.label_name}</div> */}
+                    <Tag color={item.color}>{item.label_name}</Tag>
                   </div>
                 );
               })}
