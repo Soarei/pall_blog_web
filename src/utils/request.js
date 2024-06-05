@@ -14,8 +14,9 @@ const service = axios.create({
 service.interceptors.request.use(
   (config) => {
     // Do something before request is sent
-    if (store.getState().user.token) {
+    if (localStorage.getItem('token')) {
       // 让每个请求携带token-- ['Authorization']为自定义key 请根据实际情况自行修改
+      config.headers.token = localStorage.getItem('token')
       config.headers.Authorization = getToken();
     }
     return config;
@@ -38,7 +39,14 @@ service.interceptors.response.use(
    */
   response => {
     // const res = response.data
-    console.log(response);
+    const { data, status } = response
+    if (status === 200) {
+      if (data.code === 5200) {
+        return Promise.resolve(data)
+      } else {
+        return Promise.reject(data)
+      }
+    }
     // console.log(res);
     // if (res.code !== 5200) {
     //   Message({

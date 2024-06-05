@@ -1,14 +1,22 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Icon, Menu, Dropdown, Modal, Layout, Avatar } from "antd";
+import {
+  Icon,
+  Menu,
+  Dropdown,
+  Modal,
+  Layout,
+  Avatar,
+  Input,
+  Button,
+} from "antd";
 import { Link } from "react-router-dom";
 import { logout, getUserInfo } from "@/store/actions";
-import FullScreen from "@/components/FullScreen";
 import Settings from "@/components/Settings";
 import LeftMenu from "./LeftMenu/leftMenu";
 import "./index.less";
 const { Header } = Layout;
-
+const { Search } = Input;
 const LayoutHeader = (props) => {
   const { token, avatar, logout, getUserInfo, showSettings } = props;
   token && getUserInfo(token);
@@ -37,15 +45,6 @@ const LayoutHeader = (props) => {
       <Menu.Item key="dashboard">
         <Link to="/dashboard">首页</Link>
       </Menu.Item>
-      <Menu.Item key="project">
-        <a
-          target="_blank"
-          href="https://github.com/NLRX-WJC/react-antd-admin-template"
-          rel="noopener noreferrer"
-        >
-          项目地址
-        </a>
-      </Menu.Item>
       <Menu.Divider />
       <Menu.Item key="logout">注销</Menu.Item>
     </Menu>
@@ -60,8 +59,15 @@ const LayoutHeader = (props) => {
             <LeftMenu props="1"></LeftMenu>
           </div>
           <div className="right-menu">
-            <FullScreen />
-            {showSettings ? <Settings /> : null}
+            <Search
+              placeholder="请输入搜索内容"
+              onSearch={(value) => console.log(value)}
+              style={{ width: 400, height: 40, marginRight: 20 }}
+            />
+            {/* {showSettings ? <Settings /> : null} */}
+            <Button type="primary" className="createArticle">
+              创作中心
+            </Button>
             <div className="dropdown-wrap">
               <Dropdown overlay={menu}>
                 <div>

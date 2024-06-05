@@ -24,11 +24,14 @@ const Error404 = Loadable({ loader: () => import(/*webpackChunkName:'Error404'*/
 const User = Loadable({ loader: () => import(/*webpackChunkName:'User'*/'@/views/user'), loading: Loading });
 const About = Loadable({ loader: () => import(/*webpackChunkName:'About'*/'@/views/about'), loading: Loading });
 const Bug = Loadable({ loader: () => import(/*webpackChunkName:'Bug'*/'@/views/bug'), loading: Loading });
-
+const CreationEditor = Loadable({ loader: () => import(/*webpackChunkName:'Bug'*/'@/views/creation'), loading: Loading });
+const CreationEditorSuccess = Loadable({ loader: () => import(/*webpackChunkName:'Bug'*/'@/views/creation/success'), loading: Loading });
 export default [
   { path: "/dashboard", component: Dashboard },
   { path: "/doc", component: Doc },
   { path: "/info/:articleId", component: Guide },
+  { path: "/creation/editor", component: CreationEditor },
+  { path: "/creation/success", component: CreationEditorSuccess },
   { path: "/permission/explanation", component: Explanation, roles: ["admin"] },
   { path: "/permission/adminPage", component: AdminPage, roles: ["admin"] },
   { path: "/permission/guestPage", component: GuestPage, roles: ["guest"] },
