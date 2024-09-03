@@ -10,14 +10,16 @@ import {
   Input,
   Button,
 } from "antd";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { logout, getUserInfo } from "@/store/actions";
 import Settings from "@/components/Settings";
 import LeftMenu from "./LeftMenu/leftMenu";
 import "./index.less";
 const { Header } = Layout;
 const { Search } = Input;
+
 const LayoutHeader = (props) => {
+  const history = useHistory();
   const { token, avatar, logout, getUserInfo, showSettings } = props;
   token && getUserInfo(token);
   const handleLogout = (token) => {
@@ -39,6 +41,9 @@ const LayoutHeader = (props) => {
       default:
         break;
     }
+  };
+  const createEditor = () => {
+    history.push("/creation/editor");
   };
   const menu = (
     <Menu onClick={onClick}>
@@ -65,7 +70,11 @@ const LayoutHeader = (props) => {
               style={{ width: 400, height: 40, marginRight: 20 }}
             />
             {/* {showSettings ? <Settings /> : null} */}
-            <Button type="primary" className="createArticle">
+            <Button
+              type="primary"
+              className="createArticle"
+              onClick={createEditor}
+            >
               创作中心
             </Button>
             <div className="dropdown-wrap">

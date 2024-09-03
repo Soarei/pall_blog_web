@@ -1,8 +1,13 @@
 import React from "react";
 import { Result, Button, Icon } from "antd";
+import { useHistory } from "react-router-dom";
 import "./success.less";
 const CreationEditorSuccess = (props) => {
+  const history = useHistory();
   // return MyEditor;
+  const handleAgainArticle = () => {
+    history.push("/creation/editor");
+  };
   return (
     <div className="success-bg">
       <Result
@@ -13,7 +18,9 @@ const CreationEditorSuccess = (props) => {
           <Button type="primary" key="console">
             查看文章
           </Button>,
-          <Button key="buy">再写一篇</Button>,
+          <Button key="buy" onClick={handleAgainArticle}>
+            再写一篇
+          </Button>,
         ]}
       />
       <div className="share">

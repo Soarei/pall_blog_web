@@ -1,5 +1,6 @@
 import "@wangeditor/editor/dist/css/style.css";
 import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import { Editor, Toolbar } from "@wangeditor/editor-for-react";
 import {
   Form,
@@ -12,8 +13,11 @@ import {
   Radio,
   Tag,
   Popover,
+  message,
+  notification,
 } from "antd";
 import { IDomEditor, IEditorConfig, IToolbarConfig } from "@wangeditor/editor";
+import Catalogue from "./components/Catalogue";
 import {
   uploadImage,
   getCategory,
@@ -29,7 +33,8 @@ const MyEditor = (props) => {
   const [labels, setLabels] = useState([]);
   const [imageUrl, setImageUrl] = useState("");
   const [filelist, setFileList] = useState([]);
-  const [loading, setLoading] = useState("plus");
+  const [loading, setLoading] = useState(false);
+  const history = useHistory();
   const [form, setForm] = useState({
     catgory_id: "",
     labelIds: [],
@@ -131,21 +136,35 @@ const MyEditor = (props) => {
   };
   const uploadButton = (
     <div className="upload-button">
-      <Icon type={loading ? "plus" : "plus"} />
+      <Icon type={loading ? "loading" : "plus"} />
       <div className="ant-upload-text">添加文章封面</div>
     </div>
   );
   // 上传封面成功
   const uploadCover = ({ file, fileList }) => {
-    const url = file.response ? file.response.data.url : "";
-    setFileList(fileList);
-    setImageUrl(url);
-    setForm(() => {
-      return {
-        ...form,
-        articleCover: url,
-      };
-    });
+    if (file.response) {
+      const url = file.response.data.url;
+      setFileList(fileList);
+      setImageUrl(url);
+      setForm(() => {
+        return {
+          ...form,
+          articleCover: url,
+        };
+      });
+      setLoading(false);
+    } else {
+      setLoading(true);
+    }
+    // const url = file.response ? file.response.data.url : "";
+    // setFileList(fileList);
+    // setImageUrl(url);
+    // setForm(() => {
+    //   return {
+    //     ...form,
+    //     articleCover: url,
+    //   };
+    // });
   };
   // 摘要
   const handleAbstract = (event) => {
@@ -196,6 +215,8 @@ const MyEditor = (props) => {
     </>
   );
   const addArticleBlog = () => {
+    console.log(editor);
+    return;
     const {
       catgory_id,
       labelIds,
@@ -215,9 +236,16 @@ const MyEditor = (props) => {
       level: 1,
       article_content: html,
     };
-    addArticle(data).then((res) => {
-      console.log(res);
-    });
+    addArticle(data)
+      .then((res) => {
+        history.push(`/creation/success`);
+      })
+      .catch((error) => {
+        notification["error"]({
+          message: "服务器错误",
+          description: error,
+        });
+      });
   };
   return (
     <>
@@ -250,6 +278,7 @@ const MyEditor = (props) => {
           />
         </div>
       </div>
+      <Catalogue className="catalog" html={html}></Catalogue>
       <div className="article-info">
         <Form
           onSubmit={handleSubmit}
@@ -358,9 +387,11 @@ const MyEditor = (props) => {
             {" "}
             <TextArea
               rows={4}
-              placeholder="摘要:会在推荐、列表等场景外漏，帮助读者快速了解内容"
+              placeholder="摘要：会在推荐、列表等场景外露，帮助读者快速了解内容，支持一键将正文前 256 字符键入摘要文本框"
               maxLength={200}
               onChange={handleAbstract}
+              autoSize={{ minRows: 6, maxRows: 8 }}
+              style={{ fontSize: 16 }}
               value={form.abstract}
             ></TextArea>
           </Form.Item>
